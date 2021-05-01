@@ -33,11 +33,19 @@ impl Complex {
   }
 }
 
-use std::ops::{Add, Sub, Mul, Div, Neg};
+use std::ops::{Add, Sub, Mul, Div, Neg, AddAssign};
 impl Add for Complex {
   type Output=Self;
   fn add(self, other: Self) -> Self {
     Self{
+      real: self.real + other.real,
+      imaginary: self.imaginary + other.imaginary
+    }
+  }
+}
+impl AddAssign for Complex {
+  fn add_assign(&mut self, other: Self){
+    *self = Self{
       real: self.real + other.real,
       imaginary: self.imaginary + other.imaginary
     }
@@ -84,6 +92,21 @@ impl Complex {
     Self{
       real: self.real / other,
       imaginary: self.imaginary / other
+    }
+  }
+
+  pub fn real_part(self) -> f64 {
+    self.real
+  }
+
+  pub fn imaginary_part(self) -> f64 {
+    self.imaginary
+  }
+
+  pub fn dot(self, other: Self) -> Self{
+    Self{
+      real: self.real * other.real,
+      imaginary: self.imaginary * other.imaginary
     }
   }
 }
